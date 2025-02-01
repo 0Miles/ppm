@@ -1,6 +1,7 @@
 function ppm {
     param (
         [string]$Command,
+        [Parameter(ValueFromRemainingArguments=$true)]
         [string[]]$Packages
     )
 
