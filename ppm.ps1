@@ -43,7 +43,7 @@ function ppm {
 
     switch ($Command) {
         "init" {
-            if ($Packages.Count -eq 0) {
+            if ($Packages.Count -eq 0 -or ($Packages.Count -eq 1 -and [string]::IsNullOrWhiteSpace($Packages[0]))) {
                 if (-Not (Test-Path ".venv")) {
                     python -m venv .venv
                     Write-Host "Virtual environment created in .venv"
@@ -82,7 +82,7 @@ function ppm {
             if (-Not (Test-Path "requirements.txt")) {
                 Update-Requirements
             }
-            if ($Packages.Count -eq 0) {
+            if ($Packages.Count -eq 0 -or ($Packages.Count -eq 1 -and [string]::IsNullOrWhiteSpace($Packages[0]))) {
                 pip install -r requirements.txt
             } else {
                 pip install @Packages
@@ -97,7 +97,7 @@ function ppm {
         }
         "uninstall" {
             Activate-Venv
-            if ($Packages.Count -eq 0) {
+            if ($Packages.Count -eq 0 -or ($Packages.Count -eq 1 -and [string]::IsNullOrWhiteSpace($Packages[0]))) {
                 Write-Host "Please specify a package to remove."
                 return
             }
